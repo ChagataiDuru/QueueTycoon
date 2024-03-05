@@ -1,0 +1,18 @@
+[package]
+name = "queuetycoon"
+version = "0.1.0"
+authors = ["Çağatay Duru <durucagatay01@gmail.com>"]
+edition = "2021"
+repository = "https://github.com/ChagataiDuru/QueueTycoon"
+
+[profile.dev]
+opt-level = 3
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[dependencies]
+bevy = { version = "0.13", features = ["dynamic_linking"] }
+leafwing-input-manager = "0.13"
+rand = "0.8"
+bevy_hanabi = "0.10"

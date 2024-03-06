@@ -1,6 +1,13 @@
+mod schedule;
+mod state;
+mod movement;
+
 mod prelude {
     pub use bevy::prelude::*;
     pub use bevy_hanabi::prelude::*;
+    pub use crate::schedule::*;
+    pub use crate::state::*;
+    pub use crate::movement::*;
     //pub use leafwing_input_manager::prelude::*;
     //pub use rand::{thread_rng, Rng};
 }
@@ -24,6 +31,9 @@ fn main() {
         }
     ))
     .add_plugins(HanabiPlugin)
+    .add_plugins(StatePlugin)
+    .add_plugins(SchedulePlugin)
+    .add_plugins(MovementPlugin)
     .add_systems(Startup, setup_camera)
     .run();
 }

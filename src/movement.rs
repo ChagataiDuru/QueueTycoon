@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use crate::schedule::InGameSet;
 
 #[derive(Component, Debug)]
 pub struct Velocity {

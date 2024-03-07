@@ -1,13 +1,21 @@
+mod asset_manager;
 mod schedule;
 mod state;
 mod movement;
+mod map;
+mod grid;
+mod tile;
 
 mod prelude {
     pub use bevy::prelude::*;
     pub use bevy_hanabi::prelude::*;
+    pub use crate::asset_manager::*;
     pub use crate::schedule::*;
     pub use crate::state::*;
     pub use crate::movement::*;
+    pub use crate::map::*;
+    pub use crate::grid::*;
+    pub use crate::tile::*;
     //pub use leafwing_input_manager::prelude::*;
     //pub use rand::{thread_rng, Rng};
 }
@@ -30,14 +38,23 @@ fn main() {
             ..default()
         }
     ))
+    .add_systems(Startup, (setup_camera, initialize_map))
+    //.add_plugins(AssetManagerPlugin)  
     .add_plugins(HanabiPlugin)
     .add_plugins(StatePlugin)
     .add_plugins(SchedulePlugin)
+    //.add_plugins(GridPlugin)
     .add_plugins(MovementPlugin)
-    .add_systems(Startup, setup_camera)
     .run();
 }
 
 pub fn setup_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
+}
+
+pub fn initialize_map(mut commands: Commands) {
+    let map = Map::new(5, 5);
+    let map_entity = commands.spawn((Map::new(map.width,map.height), Transform::default()))
+    .id();
+    show_grid(commands, &map, map_entity);
 }

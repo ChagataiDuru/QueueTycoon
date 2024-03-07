@@ -12,11 +12,11 @@ pub struct StatePlugin;
 
 impl Plugin for StatePlugin {
     fn build(&self, app: &mut App) {
-        app.init_state::<GameState>().
-        add_systems(Update,
+        app.init_state::<GameState>()
+        .add_systems(Update,
             (
                 game_state_input_events,
-                transition_to_in_game.run_if(in_state(GameState::GameOver)),
+                transition_to_game.run_if(in_state(GameState::GameOver)),
             ),
         );
     }
@@ -33,9 +33,10 @@ fn game_state_input_events(
             GameState::Paused => next_state.set(GameState::GameOn),
             _ => (),
         }
+        info!("Game State: {:?}", state);
     }
 }
 
-fn transition_to_in_game(mut next_state: ResMut<NextState<GameState>>) {
+fn transition_to_game(mut next_state: ResMut<NextState<GameState>>) {
     next_state.set(GameState::GameOn);
 }

@@ -16,6 +16,8 @@ strip = true
 
 [dependencies]
 bevy = { version = "0.13", features = ["dynamic_linking"] }
+bevy-inspector-egui = "0.23.4"
+bevy_asset_loader = { version = "0.20.0", features = ["2d"] }
+bevy_hanabi = "0.10"
 leafwing-input-manager = "0.13"
 rand = "0.8"
-bevy_hanabi = "0.10"

@@ -28,12 +28,12 @@ impl Map {
 
 #[derive(Component, Debug)]
 pub struct MapPosition {
-    pub x: usize,
-    pub y: usize,
+    pub x: f32,
+    pub y: f32,
 }
 
 impl MapPosition {
-    pub fn new(x: usize, y: usize) -> Self {
+    pub fn new(x: f32, y: f32) -> Self {
         Self { x, y }
     }
 }

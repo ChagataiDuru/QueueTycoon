@@ -9,6 +9,10 @@ mod tile;
 mod prelude {
     pub use bevy::prelude::*;
     pub use bevy_hanabi::prelude::*;
+    pub use bevy_asset_loader::prelude::*;
+    pub use bevy_inspector_egui::quick::WorldInspectorPlugin;
+    pub use bevy_asset_loader::asset_collection::AssetCollection;
+
     pub use crate::asset_manager::*;
     pub use crate::schedule::*;
     pub use crate::state::*;
@@ -26,6 +30,8 @@ use crate::prelude::*;
 pub const WINDOW_WIDTH: f32 = 1280.0;
 pub const WINDOW_HEIGHT: f32 = 800.0;
 
+pub const TOP_LEFT: Vec2 = Vec2::new(-WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0);
+
 fn main() {
     App::new()
     .add_plugins(DefaultPlugins.set(
@@ -38,8 +44,9 @@ fn main() {
             ..default()
         }
     ))
+    .add_plugins(WorldInspectorPlugin::new())
     .add_systems(Startup, (setup_camera, initialize_map))
-    //.add_plugins(AssetManagerPlugin)  
+    .add_plugins(AssetManagerPlugin)  
     .add_plugins(HanabiPlugin)
     .add_plugins(StatePlugin)
     .add_plugins(SchedulePlugin)
@@ -53,8 +60,6 @@ pub fn setup_camera(mut commands: Commands) {
 }
 
 pub fn initialize_map(mut commands: Commands) {
-    let map = Map::new(5, 5);
-    let map_entity = commands.spawn((Map::new(map.width,map.height), Transform::default()))
-    .id();
-    show_grid(commands, &map, map_entity);
+    let map = Map::new(4, 4);
+    show_grid(commands, &map);
 }

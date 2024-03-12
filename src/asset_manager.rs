@@ -16,8 +16,8 @@ impl Plugin for AssetManagerPlugin {
             LoadingState::new(AppGeneralState::AssetLoading)
                 .continue_to_state(AppGeneralState::MainMenu)
                 .load_collection::<AudioAssets>(),
-        )
-        .add_systems(OnEnter(AppGeneralState::MainMenu), start_background_audio);
+        );
+        //.add_systems(OnEnter(AppGeneralState::MainMenu), start_background_audio);
     }
 }
 

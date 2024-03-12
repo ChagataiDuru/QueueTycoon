@@ -59,7 +59,7 @@ pub fn setup_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-pub fn initialize_map(mut commands: Commands) {
-    let map = Map::new(4, 4);
+pub fn initialize_map(commands: Commands) {
+    let map = Map::new(40, 25);
     show_grid(commands, &map);
 }

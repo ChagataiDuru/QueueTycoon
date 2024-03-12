@@ -22,13 +22,8 @@ pub struct Grid;
 fn spawn_grid_vertical_lines(commands: &mut Commands, map: &Map) {
     let line_length = map.height as f32 * TILE_SIZE;
     for i in 0..=map.width {
-        let position_anchor = MapPosition { x: TOP_LEFT.x + i as f32, y: 0.0 };
-        /*         
+        let position_anchor = MapPosition { x: i as f32, y: 0.0 };      
         let (line_x, _) = calculate_sprite_position(&position_anchor);
-        info!("line_x: {}", line_x);
-        info!(
-            "Spawning vertical line at x: {}, y: {}", line_x - TILE_SIZE / 2.0, map.height as f32 * TILE_SIZE / -2.0
-        ); */
         commands.spawn((
             Grid,
             SpriteBundle {
@@ -38,29 +33,22 @@ fn spawn_grid_vertical_lines(commands: &mut Commands, map: &Map) {
                     ..default()
                 },
                 transform: Transform::from_xyz(
-                    position_anchor.x + TILE_SIZE / 2.0,
-                    position_anchor.y - map.height as f32 * TILE_SIZE / -2.0,
+                    TOP_LEFT.x+(line_x - TILE_SIZE / 2.0),
+                    TOP_LEFT.y+(map.height as f32 * TILE_SIZE / -2.0),
                     0.5,
                 ),
                 ..default()
             },
         ));
-        info!(
-            "Spawning vertical line at x: {}, y: {}", position_anchor.x - TILE_SIZE / 2.0,
-            position_anchor.y - map.height as f32 * TILE_SIZE / -2.0
-        );
     }
 }
 
 fn spawn_grid_horizontal_lines(commands: &mut Commands, map: &Map) {
     let line_length = map.width as f32 * TILE_SIZE;
     for j in 0..=map.height {
-        let position_anchor = MapPosition { x: 0.0, y: TOP_LEFT.y - j as f32};
-/*         let (_, line_y) = calculate_sprite_position(&position_anchor);
-        info!("line_y: {}", line_y);
-        info!(
-            "Spawning horizontal line at x: {}, y: {}", map.width as f32 * TILE_SIZE / 2.0, line_y + TILE_SIZE - TILE_SIZE / 2.0
-        ); */
+        let position_anchor = MapPosition { x: 0.0, y: j as f32};
+        let (_, line_y) = calculate_sprite_position(&position_anchor);
+
         commands.spawn((
             Grid,
             SpriteBundle {
@@ -70,17 +58,13 @@ fn spawn_grid_horizontal_lines(commands: &mut Commands, map: &Map) {
                     ..default()
                 },
                 transform: Transform::from_xyz(
-                    position_anchor.x - map.width as f32 * TILE_SIZE / 2.,
-                    position_anchor.y + TILE_SIZE - TILE_SIZE / 2.,
+                    TOP_LEFT.x+(map.width as f32 * TILE_SIZE / 2.),
+                    TOP_LEFT.y+(line_y + TILE_SIZE - TILE_SIZE / 2.),
                     0.5,
                 ),
                 ..default()
             },
         ));
-        info!(
-            "Spawning horizontal line at x: {}, y: {}", position_anchor.x - map.width as f32 * TILE_SIZE / 2.,
-            position_anchor.y + TILE_SIZE - TILE_SIZE / 2.
-        );
     }
 }
 

@@ -15,9 +15,10 @@ impl Plugin for AssetManagerPlugin {
            .add_loading_state(
             LoadingState::new(AppGeneralState::AssetLoading)
                 .continue_to_state(AppGeneralState::MainMenu)
-                .load_collection::<AudioAssets>(),
-        );
-        //.add_systems(OnEnter(AppGeneralState::MainMenu), start_background_audio);
+                .load_collection::<AudioAssets>()
+                .load_collection::<TileAssets>(),
+        )
+        .add_systems(OnEnter(AppGeneralState::MainMenu), start_background_audio);
     }
 }
 
@@ -25,6 +26,13 @@ impl Plugin for AssetManagerPlugin {
 struct AudioAssets {
     #[asset(path = "audio/main_menu.ogg")]
     background: Handle<AudioSource>,
+}
+
+#[derive(AssetCollection, Resource)]
+pub struct TileAssets {
+    #[asset(path = "tiles/WoodTile.png")]
+    #[asset(image(sampler = nearest))]
+    woodtile: Handle<Image>,
 }
 
 fn start_background_audio(mut commands: Commands, audio_assets: Res<AudioAssets>) {

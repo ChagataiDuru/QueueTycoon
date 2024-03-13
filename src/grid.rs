@@ -48,7 +48,6 @@ fn spawn_grid_horizontal_lines(commands: &mut Commands, map: &Map) {
     for j in 0..=map.height {
         let position_anchor = MapPosition { x: 0.0, y: j as f32};
         let (_, line_y) = calculate_sprite_position(&position_anchor);
-
         commands.spawn((
             Grid,
             SpriteBundle {
@@ -66,6 +65,22 @@ fn spawn_grid_horizontal_lines(commands: &mut Commands, map: &Map) {
             },
         ));
     }
+}
+
+fn draw_wooden_tile(mut commands: Commands, map: &Map, position: MapPosition, tile: Res<TileAssets>) {
+    let (x, y) = calculate_sprite_position(&position);
+    commands.spawn((
+        TileBundle {
+            tile: Tile,
+            r#type: TileType::Wood,
+            position,
+            sprite: SpriteBundle {
+                texture: tile.woodtile.clone(),
+                transform: Transform::from_xyz(TOP_LEFT.x + x, TOP_LEFT.y + y, 0.0),
+                ..default()
+            },
+        },
+    ));
 }
 
 pub fn show_grid(mut commands: Commands, map: &Map) {

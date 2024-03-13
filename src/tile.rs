@@ -24,5 +24,5 @@ pub struct TileBundle {
     pub tile: Tile,
     pub r#type: TileType,
     pub position: MapPosition,
-    pub sprite: SpriteSheetBundle,
+    pub sprite: SpriteBundle,
 }

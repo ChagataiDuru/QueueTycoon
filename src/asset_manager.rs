@@ -1,4 +1,4 @@
-use crate::prelude::*;
+use crate::{prelude::*, TOP_LEFT};
 
 #[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Hash, States)]
 enum AppGeneralState {
@@ -18,7 +18,9 @@ impl Plugin for AssetManagerPlugin {
                 .load_collection::<AudioAssets>()
                 .load_collection::<TileAssets>(),
         )
-        .add_systems(OnEnter(AppGeneralState::MainMenu), start_background_audio);
+        .add_systems(OnEnter(AppGeneralState::MainMenu), 
+        (start_background_audio)
+        );
     }
 }
 
@@ -31,7 +33,6 @@ struct AudioAssets {
 #[derive(AssetCollection, Resource)]
 pub struct TileAssets {
     #[asset(path = "tiles/WoodTile.png")]
-    #[asset(image(sampler = nearest))]
     woodtile: Handle<Image>,
 }
 

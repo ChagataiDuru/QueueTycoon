@@ -1,5 +1,4 @@
 use crate::{prelude::*, TOP_LEFT};
-use bevy::prelude::*;
 
 pub const GRID_LINE_WIDTH: f32 = 2.0;
 
@@ -67,7 +66,18 @@ fn spawn_grid_horizontal_lines(commands: &mut Commands, map: &Map) {
     }
 }
 
-fn draw_wooden_tile(mut commands: Commands, map: &Map, position: MapPosition, tile: Res<TileAssets>) {
+pub fn show_grid(mut commands: Commands, map: &Map) {
+    spawn_grid_vertical_lines(&mut commands, map);
+    spawn_grid_horizontal_lines(&mut commands, map);
+}
+
+pub fn calculate_sprite_position(map_position: &MapPosition) -> (f32, f32) {
+    (
+        map_position.x as f32 * 32. + 32. / 2.0 , -1f32 * map_position.y as f32 * 32.- 32. / 2.0,
+    )
+}
+
+pub fn draw_wooden_tile(mut commands: Commands, tile: Res<TileAssets>) {
     let (x, y) = calculate_sprite_position(&position);
     commands.spawn((
         TileBundle {
@@ -81,15 +91,4 @@ fn draw_wooden_tile(mut commands: Commands, map: &Map, position: MapPosition, ti
             },
         },
     ));
-}
-
-pub fn show_grid(mut commands: Commands, map: &Map) {
-    spawn_grid_vertical_lines(&mut commands, map);
-    spawn_grid_horizontal_lines(&mut commands, map);
-}
-
-pub fn calculate_sprite_position(map_position: &MapPosition) -> (f32, f32) {
-    (
-        map_position.x as f32 * 32. + 32. / 2.0 , -1f32 * map_position.y as f32 * 32.- 32. / 2.0,
-    )
 }
